@@ -9,7 +9,7 @@ spring:
       ddl-auto: validate
 
   datasource:
-    url: jdbc:postgresql://137.74.114.219:19009/keeperdb?sslmode=disable
+    url: jdbc:postgresql://localhost:5432/keeperdb
     username: postgres
     password: myRea11ySecRett0Pass
     platform: postgres
@@ -24,7 +24,7 @@ spring:
     date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
 
   thymeleaf:
-    cache: false
+    cache: true
     mode: LEGACYHTML5
 
 logging:
@@ -33,7 +33,30 @@ logging:
 ---
 
 spring:
-    profiles: dev
+  profiles: local
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/keeperdb
+    username: postgres
+    password: postgres
+    platform: postgres
+    continue-on-error: true
+    dbcp2:
+      driver-class-name: org.postgresql.Driver
+
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
+
+---
+
+spring:
+  profiles: dev
 
 logging:
   level: debug

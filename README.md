@@ -8,9 +8,9 @@ Social network for citizens which allow them to cooperate on daily tasks to help
 - [Use Case](#service-use-case)
 - [managment](#managment)
 - [Export](#export)
-  - [BaseExporter Parameters](#service-architecture-diagram)
-  - [CsvExporter Specific Parameters](#database-model-diagram)
-  - [XmlExporter Specific Parameters](#geoPoint-save-chain)
+  - [Service architecture diagram](#service-architecture-diagram)
+  - [Database model diagram](#database-model-diagram)
+  - [GeoPoint save chain](#geoPoint-save-chain)
 - [Version History](#version-history)
 
 ### Service use case

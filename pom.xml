@@ -8,7 +8,8 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>keeper-webapp-standalone</artifactId>
+    <artifactId>keeper</artifactId>
+    <groupId>io.service</groupId>
     <name>Keeper App STANDALONE Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
