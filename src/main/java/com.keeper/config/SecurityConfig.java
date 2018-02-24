@@ -22,13 +22,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 @Configuration
 @EnableWebSecurity
-public class SimpleSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
     private final String ROLE = UserType.USER.toString();
 
     @Autowired
-    public SimpleSecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl) {
+    public SecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl) {
         this.userDetailsService = userDetailsServiceImpl;
     }
 

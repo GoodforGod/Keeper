@@ -41,17 +41,13 @@ public class SubscriptionService implements ISubscription, ISubscriptionRemove {
     @Override
     public Optional<List<Long>> getTaskSubscribers(Long taskId) {
         Optional<List<Participant>> participants = partService.getParticipantByTask(taskId);
-        if(participants.isPresent())
-            return Optional.of(participants.get().stream().map(Participant::getUserId).collect(Collectors.toList()));
-        return Optional.empty();
+        return participants.map(participants1 -> participants1.stream().map(Participant::getUserId).collect(Collectors.toList()));
     }
 
     @Override
     public Optional<Set<Long>> getUserSubscriptions(Long userId) {
         Optional<List<Participant>> participants = partService.getParticipantByUser(userId);
-        return (participants.isPresent())
-                ? Optional.of(participants.get().stream().map(Participant::getTaskId).collect(Collectors.toSet()))
-                : Optional.empty();
+        return participants.map(participants1 -> participants1.stream().map(Participant::getTaskId).collect(Collectors.toSet()));
     }
 
     @Transactional
@@ -85,7 +81,7 @@ public class SubscriptionService implements ISubscription, ISubscriptionRemove {
     @Transactional
     @Override
     public List<TaskDTO> fillSubs(Long userId, List<TaskDTO> tasks) {
-        final List<TaskDTO> tasksToCounter = new ArrayList<>(tasks.stream().map(TaskDTO::new).collect(Collectors.toSet()));
+        final List<TaskDTO> tasksToCounter = tasks.stream().map(TaskDTO::new).distinct().collect(Collectors.toList());
         try {
             tasksToCounter.forEach(t -> partService.getSpecificParticipant(userId, t.getId())
                     .ifPresent(p -> t.setModifyCount(p.getModifyCounter())));

@@ -118,26 +118,14 @@ public class FeedService implements IFeed, IFeedSubmit, IFeedChartRate {
 
     @Override
     public GeoPoint submit(GeoPoint point) {
-        GeoPoint geo = points.get(point.getId());
-
-        if(geo == null)
-            points.put(point.getId(), point);
-        else
-            points.replace(point.getId(), point);
-
+        points.put(point.getId(), point);
         pointsToProceed.add(point.getId());
         return point;
     }
 
     @Override
     public Route submit(Route route) {
-        Route dto = routes.get(route.getId());
-
-        if(dto == null)
-            routes.put(route.getId(), route);
-        else
-            routes.replace(route.getId(), route);
-
+        routes.put(route.getId(), route);
         routesToProceed.add(route.getId());
         return route;
     }
@@ -466,12 +454,9 @@ public class FeedService implements IFeed, IFeedSubmit, IFeedChartRate {
     public Optional<List<TaskDTO>> subscribed(Long userId) {
         Optional<Set<Long>> subs = subsService.getUserSubscriptions(userId);
 
-        if(subs.isPresent())
-            return Optional.of(subsService.fillSubs(userId, ModelTranslator.tasksToDTO(tasks.entrySet()
-                    .stream().filter(t -> subs.get().contains(t.getKey()))
-                    .map(Map.Entry::getValue).collect(Collectors.toList()))));
-        else
-            return Optional.empty();
+        return subs.map(longs -> subsService.fillSubs(userId, ModelTranslator.tasksToDTO(tasks.entrySet()
+                .stream().filter(t -> longs.contains(t.getKey()))
+                .map(Map.Entry::getValue).collect(Collectors.toList()))));
 
     }
 
@@ -495,7 +480,6 @@ public class FeedService implements IFeed, IFeedSubmit, IFeedChartRate {
             return tasksToProceed;
 
         final Set<String> tagSet = new HashSet<>(tags);
-
         return tasksToProceed.map(taskDTOS -> Optional.of(taskDTOS.stream()
                 .filter(task -> satisfyTagSearch(task.getTagsAsString(), tagSet))
                 .collect(Collectors.toList()))).orElse(tasksToProceed);

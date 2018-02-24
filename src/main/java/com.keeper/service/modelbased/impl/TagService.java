@@ -38,10 +38,7 @@ public class TagService extends PrimeModelUtilService<Tag, Long> implements ITag
             return Optional.empty();
 
         Optional<Task> task = taskService.get(taskId);
-        if(task.isPresent())
-            return Optional.of(task.get().getTags());
-        else
-            return Optional.empty();
+        return task.map(Task::getTags);
     }
 
     @Transactional
@@ -70,7 +67,7 @@ public class TagService extends PrimeModelUtilService<Tag, Long> implements ITag
             return Optional.empty();
 
         if(tag == null) {
-            taskService.logger.warn(CREATE_MODEL_NULLABLE);
+            logger.warn(CREATE_MODEL_NULLABLE);
             return Optional.empty();
         }
 
@@ -141,7 +138,7 @@ public class TagService extends PrimeModelUtilService<Tag, Long> implements ITag
             return Optional.empty();
 
         if(tag == null) {
-            taskService.logger.warn(CREATE_MODEL_NULLABLE);
+            logger.warn(CREATE_MODEL_NULLABLE);
             return Optional.empty();
         }
 

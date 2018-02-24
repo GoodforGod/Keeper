@@ -11,7 +11,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/keeperdb
     username: postgres
-    password: myRea11ySecRett0Pass
+    password: postgres
     platform: postgres
     continue-on-error: true
     dbcp2:
@@ -52,6 +52,9 @@ spring:
   thymeleaf:
     cache: false
     mode: LEGACYHTML5
+
+logging:
+  level: debug
 
 ---
 

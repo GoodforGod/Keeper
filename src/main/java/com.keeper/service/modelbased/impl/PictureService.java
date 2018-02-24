@@ -82,7 +82,7 @@ public class PictureService extends PrimeModelService<Picture, Long> implements 
         if(invalidId(userId, REMOVE_NULLABLE_ID + "USER"))
             return Optional.empty();
 
-        return null;
+        return Optional.empty();
     }
 
     @Transactional
@@ -91,6 +91,6 @@ public class PictureService extends PrimeModelService<Picture, Long> implements 
         if(invalidId(taskId, REMOVE_NULLABLE_ID + "TASK"))
             return Optional.empty();
 
-        return null;
+        return Optional.empty();
     }
 }
